@@ -8,7 +8,8 @@ from snowflake.connector.pandas_tools import write_pandas
 #Open shapefile
 shapefile=geopandas.read_file('CA_Legislative_Districts.zip')
 
-#Drop unneeded columns shapefile=shapefile[['ID','AREA','DISTRICT','POPULATION','geometry']]
+#Drop unneeded columns (optional)
+shapefile=shapefile[['ID','AREA','DISTRICT','POPULATION','geometry']]
 shapefile.head()
 
 #Check shapefile projection
@@ -20,7 +21,7 @@ shapefile_wgs84.crs
 
 #Convert to pandas dataframe and convert and rename the geometry column
 df = pd.DataFrame(shapefile_wgs84)
-df=df.astype({'geometry':'str'}).rename(columns={'geometry':'POLYGON_COORDINATES'})
+df = df.astype({'geometry':'str'}).rename(columns={'geometry':'POLYGON_COORDINATES'})
 df.info()
 
 #Connect to Snowflake
